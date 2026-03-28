@@ -22,7 +22,11 @@ def menu():
     return opc
 
 def convertBytes(memory: int):
-    
+    '''
+        ## Função de conversão de memória
+        Recebe um valor **memory** representado em Bytes, e converte esse valor em MB, ou em GB caso necessário\n
+        **Retorna uma string contendo o novo valor e indicação da memória**
+    '''
     memMB = memory / (1024 ** 2)
 
     if (memMB >= 1024):
@@ -31,6 +35,12 @@ def convertBytes(memory: int):
     return f"{memMB:.3f} MB"
 
 def convertTime(timeseg: float):
+    '''
+        ## Função de conversão de tempo
+        Recebe um valor **timeseg** representando o tempo em segundos, e converte esse valor em minutos, ou em horas caso necessário\n
+        **Retorna uma string contendo o novo valor e indicação do tempo**
+    '''
+
     if (timeseg < 60):
         return f"{timeseg:.2f} s"
     else:

@@ -2,7 +2,14 @@ from src.Components.cpu import infosCPU
 from src.Components.memory import infosMemory
 from src.Components.energy import infosEnergy
 
+
+
 def displayInfosGeneral():
+    '''
+    ## Função de exibição das informações gerais
+    A função exibe as informações informações gerais de hardware, como Processamento, memória e Bateria
+    '''
+
     cpuTotal, cpuLogico, cpuFisico = infosCPU()
     memoriaTotal, memoriaLivre, memoriaUsadaPercent, memoriaUsada = infosMemory()
     bateriaPercent, bateriaConectada = infosEnergy()

@@ -1,7 +1,10 @@
 import psutil
 
 def infosCPU():
-
+    '''
+    ## Funcção de informações da CPU
+    retorna uma tupla contento o percentual de uso total da CPU, quantidade de núcleos lógicos e quantidade de núcleos físicos da CPU, respectivamente. 
+    '''
     cpuUso = psutil.cpu_percent(interval=0.1)
 
     cpuLogicoQuant = psutil.cpu_count()
@@ -12,5 +15,4 @@ def infosCPU():
     if (cpuFisicoQuant is None):
         cpuFisicoQuant = "Erro ao carregar"
 
-    #retorna o uso total da cpu, quantidade de núcleos lógicos e quantidade de núcleos físicos, respectivamente
     return (cpuUso, cpuLogicoQuant, cpuFisicoQuant)

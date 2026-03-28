@@ -1,6 +1,10 @@
 import psutil
 
 def infosEnergy():
+    '''
+    ## Função de informações da bateria
+    Retorna uma tupla contento a porcentagem da bateria e o Status dela OU uma tupla de string "Não foi possível determinar" caso falhe.
+    '''
     bateria = psutil.sensors_battery() #informações gerais da bateria
     if (bateria is None):
         return ("Não foi possível determinar", "Não foi possível determinar")

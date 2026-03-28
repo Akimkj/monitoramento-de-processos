@@ -2,6 +2,11 @@ import psutil
 from src.utils import convertBytes, convertTime
 
 def infoProcess(pid: int):
+    '''
+    ## Função de dados de um processo específico
+    Recebe um pid, se não existir um processo com o pid recebido, retorna None, senão retorna o nome, status, memoria ocupada, uso da cpu em % e o tempo de execução, respectivamente
+    '''
+
     if (not psutil.pid_exists(pid)):
         return None
     
