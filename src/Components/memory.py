@@ -1,4 +1,5 @@
 import psutil
+from src.utils import convertBytes
 
 def infosMemory():
     mem = psutil.virtual_memory()
@@ -11,10 +12,3 @@ def infosMemory():
     return (memTotal, memDisponivel, memUsadoPercent, memUsado)
 
 
-def convertBytes(memory: int):
-    memMB = memory / (1024 ** 2)
-
-    if (memMB >= 1024):
-        memGB = memMB / 1024
-        return f"{memGB:.3f} GB"
-    return f"{memMB:.3f} MB"

@@ -3,7 +3,7 @@ import psutil
 def infosEnergy():
     bateria = psutil.sensors_battery() #informações gerais da bateria
     if (bateria is None):
-        return ("Erro ao carregar", "Erro ao carregar")
+        return ("Não foi possível determinar", "Não foi possível determinar")
 
     bateriaPercent = bateria.percent #porcentagem da bateria restante
 
