@@ -10,6 +10,6 @@ def displayProcess(pid: int):
     if (process is not None):
         nome, status, memoria, cpuPercent, timeUso = process
 
-        print(f"\n{f"Nome: {nome}":<35} {f"Status: {status}":<20} {f"Memoria: {memoria}":<20} {f"Uso CPU: {cpuPercent:.2f} %":<20} Tempo execução: {timeUso}\n")
+        print(f"\n{f'Nome: {nome}':<35} {f'Status: {status}':<20} {f'Memoria: {memoria}':<20} {f'Uso CPU: {cpuPercent:.2f} %':<20} Tempo execução: {timeUso}\n")
     else:
         print("\nProcesso inexistente ou encerrao\n")

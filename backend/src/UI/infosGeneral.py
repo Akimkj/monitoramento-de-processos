@@ -18,13 +18,13 @@ def displayInfosGeneral():
     print("===== INFORMAÇÕES GERAIS DO COMPUTADOR ===== ")
 
     print("# PROCESSADOR")
-    print(f"{f"Uso total da CPU: {cpuTotal} %":<35} {f"Quantidade de CPU's lógicos: {cpuLogico}":<35} Quantidade de núcleos da CPU: {cpuFisico}")
+    print(f"{f'Uso total da CPU: {cpuTotal} %':<35} {f'Quantidade de CPUs lógicos: {cpuLogico}':<35} Quantidade de núcleos da CPU: {cpuFisico}")
 
     print("\n# MEMÓRIA")
     print(f"Total: {memoriaTotal:<28} Livre: {memoriaLivre:<28} Usada: {memoriaUsada} ({memoriaUsadaPercent} %)")
 
     print("\n# BATERIA")
-    print(f"Status: {bateriaConectada} {" ":<10} Porcentagem: {bateriaPercent} %")
+    print(f"Status: {bateriaConectada} {' ':<10} Porcentagem: {bateriaPercent} %")
 
     print("\n\n")
     

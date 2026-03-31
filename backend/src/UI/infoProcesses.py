@@ -9,7 +9,12 @@ def displayProcesses():
     for p in psutil.process_iter(['pid', 'status', 'name', 'username']):
         try:
             info = p.info
-            print(f"{f"PID: {info['pid']}":<20} {f"Status: {info['status']}":<25} {f"Nome: {info['name']}":<40} Username: {info['username']}")
+
+            pid_str = f"PID: {info['pid']}"
+            status_str = f"Status: {info['status']}"
+            nome_str = f"Nome: {info['name']}"
+
+            print(f"{pid_str:<20} {status_str:<25} {nome_str:<40} Username: {info['username']}")
         except:
             continue
     psutil.process_iter.cache_clear()
