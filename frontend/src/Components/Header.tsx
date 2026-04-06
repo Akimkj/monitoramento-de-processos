@@ -1,16 +1,16 @@
 'use client'
 import { useState } from 'react';
-import { Menu, X, Activity, Cpu, HardDrive, Shield } from 'lucide-react';
+import { Menu, X, Activity, Cpu } from 'lucide-react';
+import { useWebSockets } from '../hooks/useWebSocket';
 
 
 export default function Header() {
     const [menuOpen, setMenuOpen] = useState(false)
+    const {isConnected} = useWebSockets()
 
     const navLinks = [
     { name: 'Dashboard', icon: <Activity size={18} />, href: '/' },
-    { name: 'Processos', icon: <Cpu size={18} />, href: '#' },
-    { name: 'Hardware', icon: <HardDrive size={18} />, href: '/Hardware' },
-    { name: 'Segurança', icon: <Shield size={18} />, href: '#' },
+    { name: 'Processos', icon: <Cpu size={18} />, href: '/Processos' },
     ];
 
     return (
@@ -24,7 +24,8 @@ export default function Header() {
                     <a
                         key={link.name}
                         href={link.href}
-                        className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-mono text-slate-300 hover:text-cyan-400 hover:bg-slate-800 transition-all duration-300"
+                        className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-mono text-slate-300  transition-all duration-300 ${!isConnected ? `opacity-50 cursor-not-allowed pointer-events-none`: `hover:text-cyan-400 hover:bg-slate-800`}`}
+                        
                     >
                         {link.icon}
                         {link.name}
@@ -43,7 +44,7 @@ export default function Header() {
             </div>
 
             {menuOpen && (
-                <div className="md:hidden fixed top-30 h-full w-50 right-0 bg-slate-900 border-b border-cyan-500/30 animate-in  slide-in-from-top duration-300">
+                <div className="md:hidden fixed top-30 h-full w-50 right-0 bg-slate-900 border-b border-cyan-500/30 animate-in  slide-in-from-top duration-300 z-1">
                     <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                         {navLinks.map((link) => (
                         <a

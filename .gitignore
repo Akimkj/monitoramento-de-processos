@@ -1,5 +1,5 @@
-backend/src/__pycache__
-backend/src/UI/__pycache__
+# Ambiente do backend
+backend/venv
 
 # dependencies
 frontend/node_modules
