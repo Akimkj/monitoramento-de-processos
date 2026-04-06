@@ -1,11 +1,11 @@
 'use client'
-import { useWebSockets } from "@/src/hooks/useWebSocket"
+import { useSystemData } from "@/src/provider/WebSocketContext";
 import { ProcesseBase } from "@/src/types/types";
 import { useMemo, useState } from "react";
 import { convertBytes } from "@/src/utils/convertMemory";
 
 export default function Processos() {
-    const { data , isConnected, error } = useWebSockets();
+    const { data , isConnected, error } = useSystemData();
     const [searchPid, setSearchPid] = useState("");
 
     const filteredProcesses = useMemo(() => {

@@ -1,12 +1,13 @@
 'use client'
 import { useState } from 'react';
 import { Menu, X, Activity, Cpu } from 'lucide-react';
-import { useWebSockets } from '../hooks/useWebSocket';
+import { useSystemData } from '../provider/WebSocketContext';
+import Link from 'next/link';
 
 
 export default function Header() {
     const [menuOpen, setMenuOpen] = useState(false)
-    const {isConnected} = useWebSockets()
+    const {isConnected} = useSystemData()
 
     const navLinks = [
     { name: 'Dashboard', icon: <Activity size={18} />, href: '/' },
@@ -21,7 +22,7 @@ export default function Header() {
             <div className="hidden md:block">
                 <div className="ml-10 flex items-baseline space-x-4">
                 {navLinks.map((link) => (
-                    <a
+                    <Link
                         key={link.name}
                         href={link.href}
                         className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-mono text-slate-300  transition-all duration-300 ${!isConnected ? `opacity-50 cursor-not-allowed pointer-events-none`: `hover:text-cyan-400 hover:bg-slate-800`}`}
@@ -29,7 +30,7 @@ export default function Header() {
                     >
                         {link.icon}
                         {link.name}
-                    </a>
+                    </Link>
                 ))}
                 </div>
             </div>

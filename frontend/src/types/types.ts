@@ -11,6 +11,12 @@ export interface CardsProps {
     color?: 'cyan' | 'fuchsia',
 }
 
+export interface WebSocketContextType {
+    data: propsStatsSystemMonitor | null,
+    isConnected: boolean,
+    error: string,
+}
+
 export interface propsStatsSystemMonitor {
     cpu: {
         porcentagem: number,

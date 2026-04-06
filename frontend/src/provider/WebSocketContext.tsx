@@ -1,9 +1,10 @@
 'use client'
-import { useState, useEffect } from "react";
-import {propsStatsSystemMonitor} from '../types/types'
+import { useState, useEffect, createContext, ReactNode, useContext } from "react";
+import {propsStatsSystemMonitor, WebSocketContextType} from '../types/types'
 
+const WebSocketContext = createContext<WebSocketContextType | null>(null)
 
-export function useWebSockets() {
+export const WebSocketsProvider = ({children}: { children: ReactNode}) => {
     //Carrega os dados gerais do backend
     const [data, setData] = useState<propsStatsSystemMonitor | null>(null)
     //informa se esta conectado ou nao
@@ -12,7 +13,7 @@ export function useWebSockets() {
     const [error, setError] = useState<string>("")
 
     useEffect(() => {
-        const ws = new WebSocket('ws://127.0.0.1:8000/ws');
+        const ws = new WebSocket('ws://localhost:8000/ws');
 
         ws.onopen = () => {
             setIsConnected(true)
@@ -37,7 +38,19 @@ export function useWebSockets() {
             ws.close()
         }
 
-    }, [])
+    }, []);
 
-    return {data, isConnected, error}
+    return (
+        <WebSocketContext.Provider value={{data, isConnected, error}}>
+            {children}
+        </WebSocketContext.Provider>
+    )
+}
+
+export const useSystemData = () => {
+    const context = useContext(WebSocketContext)
+    if (!context) {
+        throw new Error("Falha na obtenção dos dados");
+    }
+    return context
 }

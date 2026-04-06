@@ -1,12 +1,12 @@
 'use client'
 import StatusCards from "../components/StatusCards";
 import { Cpu, Zap, MemoryStick } from 'lucide-react';
-import { useWebSockets } from "../hooks/useWebSocket";
+import { useSystemData } from "../provider/WebSocketContext";
 import { convertBytes } from "../utils/convertMemory";
 import { useMemo } from "react";
 
 export default function Home() {
-    const { data , isConnected, error } = useWebSockets()
+    const { data , isConnected, error } = useSystemData()
 
 
     const topMemoryProcesses = useMemo(() => {
