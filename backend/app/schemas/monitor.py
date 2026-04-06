@@ -1,6 +1,10 @@
 from pydantic import BaseModel, Field
 from typing import List
 
+'''
+Este arquivo contém a Estrutura de todos os dados que o servidor enviará para cliente, com o fim de evitar conflitos de tipos.
+'''
+
 class CPUSchema(BaseModel):
     porcentagem: float = Field(ge=0, le=100)
     threads: int

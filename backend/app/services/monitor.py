@@ -1,6 +1,16 @@
-import psutil, time
+import psutil
 
 class SystemMonitor:
+    '''
+    ## Classe SystemMonitor
+    Classe principal que é responsável pela coleta de todos os dados solicitados pela aplicação.  
+
+    ### Métodos:
+    * **getInfoCPU** -> Retorna um objeto contendo a porcentagem de uso da CPU, a quantidade de threads e core's da CPU.
+    * **getInfoMemory** -> Retorna um objeto com os dados da mémoria do Sistema, respectivamente: Total de memória, memória disponível, e memória usada (todas em Bytes) e a porcentagem da memória usada.
+    * **getInfoBattery** -> Retorna um objeto contendo a porcentagem da bateria e o status da bateria.
+    * **getProcesses** -> Retorna uma lista contendo todos os processos listados no SO, contendo as informações: pid, nome, status, memória ocupada e uso da CPU em %.
+    '''
     def getInfoCPU(self):
         cpuUso = psutil.cpu_percent(interval=1)
         cpuLogicoQuant = psutil.cpu_count()

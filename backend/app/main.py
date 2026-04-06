@@ -8,6 +8,12 @@ monitor = SystemMonitor()
 
 @app.websocket("/ws")
 async def get_stats(websocket: WebSocket):
+    '''
+    ## Function get_stats 
+    * Recebe um objeto websocket, e é responsável por abrir e manter o canal de conexão de dados por meio da biblioteca **FastAPI**, com a funcionalidade **WebSocket**.  
+
+    * Cria um objeto contendo os dados da CPU, Memória, Bateria e os Processos listados pelo SO. Formata em JSON e envia para o canal do WebSocket, atualizando os dados a cada segundo.
+    '''
     await websocket.accept()
     while True:
         try:
