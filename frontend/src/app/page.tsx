@@ -1,5 +1,5 @@
 'use client'
-import StatusCards from "../components/StatusCards";
+import StatusCards from "@/src/components/StatusCards";
 import { Cpu, Zap, MemoryStick } from 'lucide-react';
 import { useSystemData } from "../provider/WebSocketContext";
 import { convertBytes } from "../utils/convertMemory";
