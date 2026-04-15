@@ -3,10 +3,12 @@ import { useSystemData } from "@/src/provider/WebSocketContext";
 import { ProcesseBase } from "@/src/types/types";
 import { useMemo, useState } from "react";
 import { convertBytes } from "@/src/utils/convertMemory";
+import {ArrowDown01, Cpu, MemoryStick} from "lucide-react"
 
 export default function Processos() {
     const { data , isConnected, error } = useSystemData();
     const [searchPid, setSearchPid] = useState("");
+    const [selected, setSelected] = useState<"1" | "2" | "3">("1")
 
     const filteredProcesses = useMemo(() => {
         if (!data?.processes) {
@@ -21,6 +23,23 @@ export default function Processos() {
             return proc.pid.toString().includes(searchPid)
         });
     }, [data?.processes, searchPid])
+
+    const sortProcesses = useMemo(() => {
+        if (!filteredProcesses) {
+            return []
+        }
+
+        switch (selected) {
+            case "1":
+                return filteredProcesses.sort((a,b) => a.pid - b.pid)
+            case "2":
+                return filteredProcesses.sort((a,b) => b.cpu_percent - a.cpu_percent)
+            case "3":
+                return filteredProcesses.sort((a,b) => b.memory_usage - a.memory_usage)
+            default:
+                return [...filteredProcesses]
+        }
+    }, [filteredProcesses, selected])
 
     if (!isConnected) {
         return (
@@ -52,7 +71,34 @@ export default function Processos() {
                 <h2 className="text-xl font-mono font-bold tracking-tighter uppercase text-white border-l-4 border-fuchsia-500 pl-5">
                     Processos
                 </h2>
-                {filteredProcesses && filteredProcesses?.map((proc) =>(
+                <div className="flex flex-row items-center gap-5">
+                    <span className="text-md font-mono font-bold tracking-tight">Ordenar por: </span>
+                    <button 
+                        className={`flex flex-row gap-2 rounded-full px-9 py-2 font-bold cursor-pointer text-white ${selected === "1" ? "bg-cyan-500/80 border-cyan-500/30 text-cyan-400 drop-shadow-[0_0_8px_rgba(34,211,238,0.4)] shadow-cyan-500/10" : "bg-fuchsia-500/30 border-fuchsia-500/30 drop-shadow-[0_0_8px_rgba(240,171,252,0.4)] shadow-fuchsia-500/10"}`}
+                        onClick={() => {
+                            setSelected("1")
+                        }}
+                    >
+                        <ArrowDown01/> PID
+                    </button>
+                    <button 
+                        className={`flex flex-row gap-2 rounded-full px-9 py-2 font-bold cursor-pointer text-white ${selected === "2" ? "bg-cyan-500/80 border-cyan-500/30 text-cyan-400 drop-shadow-[0_0_8px_rgba(34,211,238,0.4)] shadow-cyan-500/10" : "bg-fuchsia-500/30 border-fuchsia-500/30 drop-shadow-[0_0_8px_rgba(240,171,252,0.4)] shadow-fuchsia-500/10"}`}
+                        onClick={() => {
+                            setSelected("2")
+                        }}
+                    >
+                        <Cpu/> CPU Usage
+                    </button>
+                    <button 
+                        className={`flex flex-row gap-2 rounded-full px-9 py-2 font-bold cursor-pointer text-white ${selected === "3" ? "bg-cyan-500/80 border-cyan-500/30 text-cyan-400 drop-shadow-[0_0_8px_rgba(34,211,238,0.4)] shadow-cyan-500/10" : "bg-fuchsia-500/30 border-fuchsia-500/30 drop-shadow-[0_0_8px_rgba(240,171,252,0.4)] shadow-fuchsia-500/10"}`}
+                        onClick={() => {
+                            setSelected("3")
+                        }}
+                    >
+                        <MemoryStick/> Memory Usage
+                    </button>
+                </div>
+                {sortProcesses && sortProcesses?.map((proc) =>(
                     <div key={proc.pid} className="flex flex-row justify-between items-center p-5 bg-slate-900 rounded-md ">
                         <div className="flex md:flex-row flex-col gap-5 items-center">
                             <span className="text-sm font-mono text-slate-300">PID: {proc.pid}</span>|

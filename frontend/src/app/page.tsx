@@ -3,18 +3,9 @@ import StatusCards from "../components/StatusCards";
 import { Cpu, Zap, MemoryStick } from 'lucide-react';
 import { useSystemData } from "../provider/WebSocketContext";
 import { convertBytes } from "../utils/convertMemory";
-import { useMemo } from "react";
 
 export default function Home() {
     const { data , isConnected, error } = useSystemData()
-
-
-    const topMemoryProcesses = useMemo(() => {
-        if (!data?.processes) {
-            return []
-        }
-        return data?.processes.sort((a,b) => b.memory_usage - a.memory_usage).slice(0,15)
-    }, [data?.processes])
 
     if (!isConnected) {
         return (
@@ -96,27 +87,6 @@ export default function Home() {
                         valueMain={datas.valueMain}
                         details={datas.details}
                     />
-                ))}
-            </div>
-            <div className="flex flex-col gap-8 p-10 w-full border-1 rounded-lg">
-                <div className="flex flex-col mb-6 border-l-4 border-fuchsia-500 pl-4">
-                    <h2 className="text-xl font-mono font-bold tracking-tighter uppercase text-white">
-                        Processos Críticos <span className="text-fuchsia-400 text-sm opacity-50">[RAM]</span>
-                    </h2>
-                    <p className="text-xs font-mono opacity-50 uppercase tracking-widest">
-                        Monitorando os 15 maiores consumidores de memória
-                    </p>
-                </div>
-                {topMemoryProcesses && topMemoryProcesses?.map((proc) =>(
-                    <div key={proc.pid} className="flex flex-row justify-between items-center p-5 bg-slate-900 rounded-md">
-                        <div className="flex md:flex-row flex-col gap-5 items-center">
-                            <span className="text-sm font-mono text-slate-300">PID: {proc.pid} |</span>
-                            <span className="text-sm font-mono text-slate-300">NOME: {proc.name} |</span>
-                            <span className="text-sm font-mono text-slate-300">STATUS: {proc.status} |</span>
-                            <span className="text-sm font-mono text-slate-300">CPU Usage: {proc.cpu_percent} % |</span>
-                            <span className="text-sm font-mono text-slate-300">Memory Usage: <span className="font-bold">{convertBytes(proc.memory_usage)}</span></span>
-                        </div>
-                    </div>
                 ))}
             </div>
         </div>
